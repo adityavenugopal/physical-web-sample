@@ -12,6 +12,11 @@ $(document).ready(function(){
   bookmark();
   switchTabs();
   scrollTab();
+
+  $('#getPnrBtn').on('click',function(){
+    getPnr(this);
+  });
+
 });
 
 function bookmark(){
@@ -51,4 +56,24 @@ function scrollTab() {
 function fixedHeader(){
   var headerHt = $('header').innerHeight();
   $('.contentWrap').css('padding-top',headerHt);
+}
+
+function getPnr(){
+  pnrNumber = $('.pnr-field').val();
+  $.ajax({
+    url: "http://api.railwayapi.com/pnr_status/pnr/"+pnrNumber+"/apikey/mrlwu2728/",
+    type: "get",
+    success: function(response) {
+      console.log(response);
+      if(response.error == false){
+
+      }
+      else{
+        $('.pnr-form .error-msg').slideDown(1000).delay(3000).slideUp(1000);
+      }
+    },
+    error: function(xhr) {
+      console.log(xhr);
+    }
+  });
 }
