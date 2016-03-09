@@ -339,6 +339,22 @@ header{
     word-spacing: 1px;
     margin-bottom: 15px;
 }
+.panel-elem{
+    float: left;
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
+}
+.panel-elem-label{
+    float: left;
+    width: 50%;
+}
+.panel-elem-val{
+    float: left;
+    width: 50%;
+    color: rgba(0,0,0,.44);
+}
+
 
 @keyframes pulsate {
     0% {
