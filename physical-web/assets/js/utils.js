@@ -17,6 +17,11 @@ $(document).ready(function(){
     getPnr(this);
   });
 
+  $('.accordion-heading').on('click',function(){
+    $(this).parent().find('.panel-body ').slideToggle(500);
+    $(this).toggleClass('active-accordion-head');
+  });
+
 });
 
 function bookmark(){
@@ -90,6 +95,8 @@ function insertPnrContent(data){
   passengers = data.total_passengers;
   journey_details = [data.train_num,data.doj,data.from_station.code,data.to_station.code,data.reservation_upto.code,data.boarding_point.code,data.class];
 
+  $('.pnr-num').html(data.pnr);
+
   $('.pnr-train-name').html(data.train_name);
 
   $('.pnr-journey-body .panel-elem-val').each(function(){
@@ -108,6 +115,9 @@ function insertPnrContent(data){
     $(this).find('.panel-title').html('Passenger '+(passengers_count+1));
     $(this).find('.prev-status').html(passenger_details[passengers_count].booking_status);
     $(this).find('.crnt-status').html(passenger_details[passengers_count].current_status);
+    passenger_details[passengers_count].coach_position == 0 ?  $(this).find('.coach-pos').html('N/A') : $(this).find('.coach-pos').html(passenger_details[passengers_count].coach_position);
     passengers_count++;
   });
+
+  $('.pnr-result').fadeIn(300);
 }
