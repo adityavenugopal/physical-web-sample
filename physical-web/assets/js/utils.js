@@ -59,6 +59,7 @@ function fixedHeader(){
 }
 
 function getPnr(){
+  $('.inner-loader').show();
   pnrNumber = $('.pnr-field').val();
   $.ajax({
     url: "http://api.railwayapi.com/pnr_status/pnr/"+pnrNumber+"/apikey/mrlwu2728/",
@@ -67,14 +68,16 @@ function getPnr(){
 
       if(response.error == false){
         insertPnrContent(response);
+        $('.inner-loader').fadeOut(300);
       }
       else{
+        $('.inner-loader').fadeOut(300);
         $('.pnr-form .error-msg').slideDown(1000).delay(3000).slideUp(1000);
-        insertPnrContent(response);
       }
     },
     error: function(xhr) {
       console.log(xhr);
+      $('.inner-loader').fadeOut(300);
     }
   });
 }
@@ -85,7 +88,9 @@ function insertPnrContent(data){
   var passengers_count = 0;
 
   passengers = data.total_passengers;
-  journey_details = [data.train_num,data.train_name,data.doj,data.from_station.code,data.to_station.code,data.reservation_upto.code,data.boarding_point.code,data.class];
+  journey_details = [data.train_num,data.doj,data.from_station.code,data.to_station.code,data.reservation_upto.code,data.boarding_point.code,data.class];
+
+  $('.pnr-train-name').html(data.train_name);
 
   $('.pnr-journey-body .panel-elem-val').each(function(){
     $(this).html(journey_details[index]);
